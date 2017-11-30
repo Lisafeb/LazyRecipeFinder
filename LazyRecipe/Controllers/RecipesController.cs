@@ -15,9 +15,23 @@ namespace LazyRecipe.DAL
         private RecipeContext db = new RecipeContext();
 
         // GET: Recipes
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string searchString)
         {
-            return View(db.Recipes.ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            
+            var recipes = from s in db.Recipes
+                           select s; if (!String.IsNullOrEmpty(searchString)) { recipes = recipes.Where(s => s.RecipeName.ToUpper().Contains(searchString.ToUpper()) ); }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    recipes = recipes.OrderByDescending(s => s.RecipeName);
+                    break;
+                
+                default:
+                    recipes = recipes.OrderBy(s => s.RecipeName);
+                    break;
+            }
+            return View(recipes.ToList());
         }
 
         // GET: Recipes/Details/5
