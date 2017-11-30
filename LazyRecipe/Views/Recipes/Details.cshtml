@@ -50,6 +50,23 @@
             @Html.DisplayFor(model => model.UserID)
         </dd>
 
+        <dt> @Html.DisplayNameFor(model => model.RecipeIngredients) </dt>
+        <dd> 
+        <table class="table"> <tr> 
+            <th>Ingredient Name</th> 
+           
+            </tr> 
+            @foreach (var item in Model.RecipeIngredients)
+        {
+        <tr> 
+            <td> 
+                @Html.DisplayFor(modelItem => item.Ingredient.IngredientName) 
+            </td> 
+         
+         </tr> 
+         } 
+         </table> 
+        </dd>
     </dl>
 </div>
 <p>

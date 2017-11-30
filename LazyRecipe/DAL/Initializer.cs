@@ -26,11 +26,11 @@ new User{Username="Karo", Email="karo@email.com", Password="1dd",UserID=1 }
             recipe.ForEach(c => context.Recipes.Add(c));
             context.SaveChanges();
 
-            var ingredient = new List<Ingredient> { new Ingredient { IngredientName = "water" }, new Ingredient { IngredientName = "salt" } };
+            var ingredient = new List<Ingredient> { new Ingredient { IngredientID=1, IngredientName = "water" }, new Ingredient { IngredientID = 2, IngredientName = "salt" } };
             ingredient.ForEach(c => context.Ingredients.Add(c));
             context.SaveChanges();
 
-            var recipeingredient = new List<RecipeIngredient> { new RecipeIngredient { RecipeID = 1, IngredientID = 1 } };
+            var recipeingredient = new List<RecipeIngredient> { new RecipeIngredient { RecipeID = 1, IngredientID = 1 } , new RecipeIngredient { RecipeID = 1, IngredientID = 2 } };
             recipeingredient.ForEach(c => context.RecipeIngredients.Add(c));
             context.SaveChanges();
 
