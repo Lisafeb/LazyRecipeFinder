@@ -26,3 +26,5 @@ namespace LazyRecipe.Models
 
     }
 }
+
+//30.11.2017
