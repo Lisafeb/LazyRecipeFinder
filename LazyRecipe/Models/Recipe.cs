@@ -19,10 +19,9 @@ namespace LazyRecipe.Models
 
         public int UserID { get; set; }
 
-        public virtual ICollection<RecipeIngredient> RecipeIngredients { get; set; }
+        public virtual ICollection<Ingredient> Ingredients { get; set; }
 
         public virtual ICollection<RecipeCategory> RecipeCategories { get; set; }
-
 
     }
 }

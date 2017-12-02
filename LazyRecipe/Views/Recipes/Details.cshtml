@@ -50,17 +50,17 @@
             @Html.DisplayFor(model => model.UserID)
         </dd>
 
-        <dt> @Html.DisplayNameFor(model => model.RecipeIngredients) </dt>
+        <dt> @Html.DisplayNameFor(model => model.Ingredients) </dt>
         <dd> 
         <table class="table"> <tr> 
             <th>Ingredient Name</th> 
            
             </tr> 
-            @foreach (var item in Model.RecipeIngredients)
+            @foreach (var item in Model.Ingredients)
         {
         <tr> 
             <td> 
-                @Html.DisplayFor(modelItem => item.Ingredient.IngredientName) 
+                @Html.DisplayFor(modelItem => item.IngredientName) 
             </td> 
          
          </tr> 

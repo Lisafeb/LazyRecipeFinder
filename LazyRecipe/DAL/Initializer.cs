@@ -21,8 +21,9 @@ new User{Username="Karo", Email="karo@email.com", Password="1dd",UserID=1 }
 
             var recipe = new List<Recipe>
             {
-                new Recipe {RecipeID= 1, RecipeName="Chicken Soup", Time=25, MainPicture="01", Instructions="soup", UserID=1 } };
-
+                new Recipe {RecipeID= 1, RecipeName="Chicken Soup", Time=25, MainPicture="01", Instructions="soup", UserID=1 ,
+                     Ingredients = new List<Ingredient> { new Ingredient { IngredientID=1, IngredientName = "water" }, new Ingredient { IngredientID = 2, IngredientName = "salt" } } } };
+           
             recipe.ForEach(c => context.Recipes.Add(c));
             context.SaveChanges();
 

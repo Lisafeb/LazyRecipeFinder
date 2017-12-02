@@ -12,30 +12,64 @@ namespace LazyRecipe.DAL
 {
     public class RecipesController : Controller
     {
+       
         private RecipeContext db = new RecipeContext();
 
         // GET: Recipes
         public ViewResult Index(string sortOrder, string searchString)
         {
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            
-            var recipes = from s in db.Recipes
-                           select s; if (!String.IsNullOrEmpty(searchString)) { recipes = recipes.Where(s => s.RecipeName.ToUpper().Contains(searchString.ToUpper()) ); }
-            switch (sortOrder)
+            //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            IQueryable recipes;
+            if (String.IsNullOrEmpty(searchString))
             {
-                case "name_desc":
-                    recipes = recipes.OrderByDescending(s => s.RecipeName);
-                    break;
-                
-                default:
-                    recipes = recipes.OrderBy(s => s.RecipeName);
-                    break;
+                recipes = db.Recipes;
             }
-            return View(recipes.ToList());
+            else
+            {
+                recipes = db.Recipes.Where(r => r.Ingredients.Any(i => i.IngredientName == searchString));
+            }
+            //var Recipes = db.Recipes.Where(r => r.Ingredients.Where(i => i.))
+            ////var Recipes = db.Recipes.Find(1);
+
+
+            //if (!String.IsNullOrEmpty(searchString)) {
+            //    db.Entry(Recipes)
+            //    .Collection(r => r.RecipeIngredients.Where(i => i.).
+            //    .Query()
+            //    .Where(i => i.  Ingredient.IngredientName.Contains(searchString));
+
+            //}
+            //));
+            //var Recipes = db.Recipes.Find(1);
+
+
+            //if (!String.IsNullOrEmpty(searchString)) {
+            //    db.Entry(Recipes)
+            //    .Collection(r => r.RecipeIngredients.Where(i => i.).
+            //    .Query()
+            //    .Where(i => i.  Ingredient.IngredientName.Contains(searchString));
+
+            //}
+
+
+
+            //switch (sortOrder)
+            //{
+            //    case "name_desc":
+            //     Recipes = Recipes.OrderByDescending(s => s.RecipeName);
+            //     break;
+
+            //  default:
+            //       Recipes = Recipes.OrderBy(s => s.RecipeName);
+            //      break;
+            //}
+            return View(recipes);
         }
 
-        // GET: Recipes/Details/5
-        public ActionResult Details(int? id)
+        
+// GET: Recipes/Details/5
+public ActionResult Details(int? id)
         {
             if (id == null)
             {
