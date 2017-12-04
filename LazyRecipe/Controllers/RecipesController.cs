@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LazyRecipe.Models;
+using System.Data.Entity.Infrastructure;
 
 namespace LazyRecipe.DAL
 {
@@ -83,27 +84,37 @@ public ActionResult Details(int? id)
             return View(recipe);
         }
 
-        // GET: Recipes/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+		// GET: Recipes/Create
+		public ActionResult Create()
+		{
+			PopulateIngredientsDropDownList();
+			return View();
+		}
 
-        // POST: Recipes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+		// POST: Recipes/Create
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID")] Recipe recipe)
+        public ActionResult Create([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID, Ingredients")] Recipe recipe)
         {
-            if (ModelState.IsValid)
+			try
+			{
+				if (ModelState.IsValid)
             {
                 db.Recipes.Add(recipe);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(recipe);
+			}
+			catch (RetryLimitExceededException /* dex */)
+			{
+				//Log the error (uncomment dex variable name and add a line here to write a log.) 
+				ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+			}
+			PopulateIngredientsDropDownList(recipe.Ingredients);
+				return View(recipe);
         }
 
         // GET: Recipes/Edit/5
@@ -118,7 +129,8 @@ public ActionResult Details(int? id)
             {
                 return HttpNotFound();
             }
-            return View(recipe);
+			PopulateIngredientsDropDownList(recipe.Ingredients);
+			return View(recipe);
         }
 
         // POST: Recipes/Edit/5
@@ -126,15 +138,24 @@ public ActionResult Details(int? id)
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID")] Recipe recipe)
+        public ActionResult Edit([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID, Ingredients")] Recipe recipe)
         {
-            if (ModelState.IsValid)
+			try
+			{
+				if (ModelState.IsValid)
             {
                 db.Entry(recipe).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(recipe);
+			}
+			catch (RetryLimitExceededException /* dex */)
+			{
+				//Log the error (uncomment dex variable name and add a line here to write a log.) 
+				ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+			}
+			PopulateIngredientsDropDownList(recipe.Ingredients);
+			return View(recipe);
         }
 
         // GET: Recipes/Delete/5
@@ -171,5 +192,13 @@ public ActionResult Details(int? id)
             }
             base.Dispose(disposing);
         }
-    }
+
+		private void PopulateIngredientsDropDownList(object selectedIngredient = null)
+		{
+			var ingredientsQuery = from d in db.Ingredients
+								   orderby d.IngredientName
+								   select d;
+			ViewBag.IngredientID = new SelectList(ingredientsQuery, "IngredientID", "IngredientName", selectedIngredient);
+		}
+	}
 }
