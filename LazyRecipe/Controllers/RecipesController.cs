@@ -96,7 +96,7 @@ public ActionResult Details(int? id)
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID, Ingredients")] Recipe recipe)
+        public ActionResult Create([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID, IngredientID")] Recipe recipe)
         {
 			try
 			{
@@ -198,7 +198,7 @@ public ActionResult Details(int? id)
 			var ingredientsQuery = from d in db.Ingredients
 								   orderby d.IngredientName
 								   select d;
-			ViewBag.IngredientID = new SelectList(ingredientsQuery, "IngredientID", "IngredientName", selectedIngredient);
+			ViewBag.IngredientID = new SelectList(ingredientsQuery, "Ingredients", "IngredientName", selectedIngredient);
 		}
 	}
 }

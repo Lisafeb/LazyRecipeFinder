@@ -23,13 +23,22 @@ new User{Username="Karo", Email="karo@email.com", Password="1dd",UserID=1 }
             {
                 new Recipe {RecipeID= 1, RecipeName="Chicken Soup", Time=25, MainPicture="01", Instructions="soup", UserID=1 ,
                      Ingredients = new List<Ingredient> { new Ingredient { IngredientID=1, IngredientName = "water" }, new Ingredient { IngredientID = 2, IngredientName = "salt" } } } };
-           
+
             recipe.ForEach(c => context.Recipes.Add(c));
             context.SaveChanges();
 
-            //var ingredient = new List<Ingredient> { new Ingredient { IngredientID=1, IngredientName = "water" }, new Ingredient { IngredientID = 2, IngredientName = "salt" } };
-            //ingredient.ForEach(c => context.Ingredients.Add(c));
-            //context.SaveChanges();
+            var ingredient = new List<Ingredient> { new Ingredient { IngredientID=3, IngredientName = "oil" },
+                new Ingredient { IngredientID = 4, IngredientName = "garlic" },
+                new Ingredient { IngredientID = 5, IngredientName = "chicken" },
+                new Ingredient { IngredientID = 6, IngredientName = "curry" },
+                new Ingredient { IngredientID = 7, IngredientName = "pepper" },
+                new Ingredient { IngredientID = 8, IngredientName = "tomato" },
+                new Ingredient { IngredientID = 9, IngredientName = "pumpkin" },
+                new Ingredient { IngredientID = 10, IngredientName = "beans" }
+
+            };
+            ingredient.ForEach(c => context.Ingredients.Add(c));
+            context.SaveChanges();
 
             //var recipeingredient = new List<RecipeIngredient> { new RecipeIngredient { RecipeID = 1, IngredientID = 1 } , new RecipeIngredient { RecipeID = 1, IngredientID = 2 } };
             //recipeingredient.ForEach(c => context.RecipeIngredients.Add(c));

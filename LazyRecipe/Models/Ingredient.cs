@@ -9,6 +9,13 @@ namespace LazyRecipe.Models
     {
         public int IngredientID { get; set; }
         public string IngredientName { get; set; }
-        
+
+        public Ingredient()
+        {
+            this.Recipes = new HashSet<Recipe>();
+        }
+
+        public virtual ICollection<Recipe> Recipes { get; set; }
+
     }
 }
