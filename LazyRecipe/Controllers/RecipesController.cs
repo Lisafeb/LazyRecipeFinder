@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LazyRecipe.Models;
+using LazyRecipe.ViewModels;
 using System.Data.Entity.Infrastructure;
 
 namespace LazyRecipe.DAL
@@ -85,11 +86,11 @@ public ActionResult Details(int? id)
         }
 
 		// GET: Recipes/Create
-		public ActionResult Create()
-		{
-			PopulateIngredientsDropDownList();
-			return View();
-		}
+		//public ActionResult Create(Recipe recipe)
+		//{
+  //          PopulateAssignedIngredientData(recipe);
+		//	return View();
+		//}
 
 		// POST: Recipes/Create
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -113,7 +114,7 @@ public ActionResult Details(int? id)
 				//Log the error (uncomment dex variable name and add a line here to write a log.) 
 				ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
 			}
-			PopulateIngredientsDropDownList(recipe.Ingredients);
+            PopulateAssignedIngredientData(recipe);
 				return View(recipe);
         }
 
@@ -124,12 +125,16 @@ public ActionResult Details(int? id)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = db.Recipes.Find(id);
+            Recipe recipe = db.Recipes
+            .Include(i => i.Ingredients)
+            .Where(i => i.RecipeID == id)
+            .Single();
+            PopulateAssignedIngredientData(recipe);
             if (recipe == null)
             {
                 return HttpNotFound();
             }
-			PopulateIngredientsDropDownList(recipe.Ingredients);
+            
 			return View(recipe);
         }
 
@@ -138,7 +143,7 @@ public ActionResult Details(int? id)
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID, Ingredients")] Recipe recipe)
+        public ActionResult Edit([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID")] Recipe recipe)
         {
 			try
 			{
@@ -154,7 +159,7 @@ public ActionResult Details(int? id)
 				//Log the error (uncomment dex variable name and add a line here to write a log.) 
 				ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
 			}
-			PopulateIngredientsDropDownList(recipe.Ingredients);
+            PopulateAssignedIngredientData(recipe);
 			return View(recipe);
         }
 
@@ -193,12 +198,35 @@ public ActionResult Details(int? id)
             base.Dispose(disposing);
         }
 
-		private void PopulateIngredientsDropDownList(object selectedIngredient = null)
-		{
-			var ingredientsQuery = from d in db.Ingredients
-								   orderby d.IngredientName
-								   select d;
-			ViewBag.IngredientID = new SelectList(ingredientsQuery, "Ingredients", "IngredientName", selectedIngredient);
-		}
-	}
-}
+        private void PopulateAssignedIngredientData(Recipe recipe)
+        {
+            var allIngredients = db.Ingredients;
+            var recipeIngredients = new HashSet<int>(recipe.Ingredients.Select(c => c.IngredientID));
+            var viewModel = new List<AssignedIngredients>();
+            foreach (var ingredient in allIngredients)
+            {
+                viewModel.Add(new AssignedIngredients
+                {
+                    IngredientID = ingredient.IngredientID,
+                    IngredientName = ingredient.IngredientName,
+                    Assigned = recipeIngredients.Contains(ingredient.IngredientID)
+                });
+            }
+            ViewBag.Ingredients = viewModel;
+        }
+
+        private void UpdateRecipeIngredients(string[] selectedIngredients, Recipe recipeToUpdate) {
+            if (selectedIngredients == null) {
+                recipeToUpdate.Ingredients = new List<Ingredient>();
+                return;
+            }
+
+            var selectedIngredientsHS = new HashSet<string>(selectedIngredients);
+            var recipeIngredients = new HashSet<int>(recipeToUpdate.Ingredients.Select(c => c.IngredientID));
+            foreach (var ingredient in db.Ingredients) {
+                if (selectedIngredientsHS.Contains(ingredient.IngredientID.ToString())) {
+                    if (!recipeIngredients.Contains(ingredient.IngredientID)) { recipeToUpdate.Ingredients.Add(ingredient); } }
+                else { if (recipeIngredients.Contains(ingredient.IngredientID)) { recipeToUpdate.Ingredients.Remove(ingredient); } } } }
+    }
+ }
+        
