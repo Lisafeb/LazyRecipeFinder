@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using LazyRecipe.Models;
 
+
 namespace LazyRecipe.DAL
 {
     public class Initializer : System.Data.Entity.
