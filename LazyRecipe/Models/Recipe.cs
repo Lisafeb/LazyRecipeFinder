@@ -8,7 +8,7 @@ namespace LazyRecipe.Models
 {
     public class Recipe
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RecipeID { get; set; }
         public string RecipeName { get; set; }
         public int Time { get; set; }

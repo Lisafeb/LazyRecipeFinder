@@ -85,38 +85,39 @@ public ActionResult Details(int? id)
             return View(recipe);
         }
 
-		// GET: Recipes/Create
-		//public ActionResult Create(Recipe recipe)
-		//{
-  //          PopulateAssignedIngredientData(recipe);
-		//	return View();
-		//}
-
-		// POST: Recipes/Create
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID, IngredientID")] Recipe recipe)
+        // Create new recipe
+        public ActionResult Create()
         {
-			try
-			{
-				if (ModelState.IsValid)
+            var recipe = new Recipe();
+            recipe.Ingredients = new List<Ingredient>();
+            PopulateAssignedIngredientData(recipe);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID")]Recipe recipe, string[] selectedIngredients)
+        {
+            if (selectedIngredients != null)
+            {
+                recipe.Ingredients = new List<Ingredient>();
+                foreach (var ingredient in selectedIngredients)
+                {
+                    var ingredientsToAdd = db.Ingredients.Find(int.Parse(ingredient));
+                    recipe.Ingredients.Add(ingredientsToAdd);
+                }
+            }
+            if (ModelState.IsValid)
             {
                 db.Recipes.Add(recipe);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-			}
-			catch (RetryLimitExceededException /* dex */)
-			{
-				//Log the error (uncomment dex variable name and add a line here to write a log.) 
-				ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-			}
             PopulateAssignedIngredientData(recipe);
-				return View(recipe);
+            return View(recipe);
         }
+
+
 
         // GET: Recipes/Edit/5
         public ActionResult Edit(int? id)
@@ -143,24 +144,36 @@ public ActionResult Details(int? id)
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecipeID,RecipeName,Time,MainPicture,Instructions,UserID")] Recipe recipe)
+        public ActionResult Edit(int? id, string[] selectedIngredients)
         {
-			try
-			{
-				if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(recipe).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var recipeToUpdate = db.Recipes
+               
+                .Include(i => i.Ingredients)
+                .Where(i => i.RecipeID == id)
+                .Single();
+
+            try
+            {
+                if (TryUpdateModel(recipeToUpdate, "",
+                       new string[] { "RecipeName", "Time", "MainPicture", "Instructions"}))
+                {
+                    UpdateRecipeIngredients(selectedIngredients, recipeToUpdate);
+                    db.Entry(recipeToUpdate).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
             }
 			}
 			catch (RetryLimitExceededException /* dex */)
 			{
-				//Log the error (uncomment dex variable name and add a line here to write a log.) 
-				ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+				ModelState.AddModelError("", "Unable to save changes.");
 			}
-            PopulateAssignedIngredientData(recipe);
-			return View(recipe);
+            PopulateAssignedIngredientData(recipeToUpdate);
+            
+			return View(recipeToUpdate);
         }
 
         // GET: Recipes/Delete/5
@@ -226,7 +239,8 @@ public ActionResult Details(int? id)
             foreach (var ingredient in db.Ingredients) {
                 if (selectedIngredientsHS.Contains(ingredient.IngredientID.ToString())) {
                     if (!recipeIngredients.Contains(ingredient.IngredientID)) { recipeToUpdate.Ingredients.Add(ingredient); } }
-                else { if (recipeIngredients.Contains(ingredient.IngredientID)) { recipeToUpdate.Ingredients.Remove(ingredient); } } } }
+                else { 
+                    if (recipeIngredients.Contains(ingredient.IngredientID)) { recipeToUpdate.Ingredients.Remove(ingredient); } } } }
     }
  }
         

@@ -17,7 +17,7 @@
     <tr>
     
         <th> @Html.ActionLink("Recipe Name", "Index", new { sortOrder = ViewBag.NameSortParm }) </th>
-        <th>Recipe </th>
+ 
         <th>
             @Html.DisplayNameFor(model => model.Time)
         </th>
@@ -26,9 +26,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Instructions)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
         </th>
         <th></th>
     </tr>
@@ -48,13 +45,11 @@
             @Html.DisplayFor(modelItem => item.Instructions)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RecipeID }) |
             @Html.ActionLink("Details", "Details", new { id=item.RecipeID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.RecipeID })
         </td>
+
     </tr>
 }
 
