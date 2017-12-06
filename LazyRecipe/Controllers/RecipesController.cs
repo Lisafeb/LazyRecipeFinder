@@ -29,7 +29,7 @@ namespace LazyRecipe.DAL
             }
             else
             {
-                recipes = db.Recipes.Where(r => r.Ingredients.Any(i => i.IngredientName == searchString));
+                recipes = db.Recipes.Where(r => r.Ingredients.Any(i => i.IngredientName.Contains(searchString)));
             }
             //var Recipes = db.Recipes.Where(r => r.Ingredients.Where(i => i.))
             ////var Recipes = db.Recipes.Find(1);
