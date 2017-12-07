@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LazyRecipe.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,27 @@ namespace LazyRecipe.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        
+        [HttpPost]
+        public ActionResult Index(string searchString)
         {
-            ViewBag.Message = "Your application description page.";
+            return RedirectToAction("Index", "Recipes");
+        }
 
+        public ActionResult RecipeIndex(string searchString)
+        {
+            ViewBag.Message = searchString;
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
+
+
     }
 }

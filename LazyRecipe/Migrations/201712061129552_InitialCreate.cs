@@ -13,6 +13,7 @@ namespace LazyRecipe.Migrations
                     {
                         IngredientID = c.Int(nullable: false, identity: true),
                         IngredientName = c.String(),
+                        IngredientCategory = c.Int(nullable: false, identity: false)
                     })
                 .PrimaryKey(t => t.IngredientID);
             

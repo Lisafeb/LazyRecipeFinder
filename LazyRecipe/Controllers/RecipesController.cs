@@ -30,42 +30,10 @@ namespace LazyRecipe.DAL
             else
             {
                 recipes = db.Recipes.Where(r => r.Ingredients.Any(i => i.IngredientName.Contains(searchString)));
+                
             }
-            //var Recipes = db.Recipes.Where(r => r.Ingredients.Where(i => i.))
-            ////var Recipes = db.Recipes.Find(1);
 
-
-            //if (!String.IsNullOrEmpty(searchString)) {
-            //    db.Entry(Recipes)
-            //    .Collection(r => r.RecipeIngredients.Where(i => i.).
-            //    .Query()
-            //    .Where(i => i.  Ingredient.IngredientName.Contains(searchString));
-
-            //}
-            //));
-            //var Recipes = db.Recipes.Find(1);
-
-
-            //if (!String.IsNullOrEmpty(searchString)) {
-            //    db.Entry(Recipes)
-            //    .Collection(r => r.RecipeIngredients.Where(i => i.).
-            //    .Query()
-            //    .Where(i => i.  Ingredient.IngredientName.Contains(searchString));
-
-            //}
-
-
-
-            //switch (sortOrder)
-            //{
-            //    case "name_desc":
-            //     Recipes = Recipes.OrderByDescending(s => s.RecipeName);
-            //     break;
-
-            //  default:
-            //       Recipes = Recipes.OrderBy(s => s.RecipeName);
-            //      break;
-            //}
+           
             return View(recipes);
         }
 

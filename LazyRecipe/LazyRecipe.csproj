@@ -160,6 +160,10 @@
     <Compile Include="Migrations\201712061129552_InitialCreate.Designer.cs">
       <DependentUpon>201712061129552_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712070933029_IngredientCategory.cs" />
+    <Compile Include="Migrations\201712070933029_IngredientCategory.Designer.cs">
+      <DependentUpon>201712070933029_IngredientCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Ingredient.cs" />
@@ -238,6 +242,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712061129552_InitialCreate.resx">
       <DependentUpon>201712061129552_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070933029_IngredientCategory.resx">
+      <DependentUpon>201712070933029_IngredientCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

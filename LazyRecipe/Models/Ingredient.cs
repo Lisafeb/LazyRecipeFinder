@@ -9,6 +9,7 @@ namespace LazyRecipe.Models
     {
         public int IngredientID { get; set; }
         public string IngredientName { get; set; }
+        public int IngredientCategory { get; set; }
 
         public Ingredient()
         {
