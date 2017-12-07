@@ -2,10 +2,20 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    @using (Html.BeginForm("Index","Recipes",FormMethod.Get))
-    { 
-        <p> Find by name: @Html.TextBox("SearchString") 
-        <input type="submit" value="Search" /></p>
+<div class="content">
+   
+    @using (Html.BeginForm("Index", "Recipes", FormMethod.Get))
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString")
+            <input type="submit" value="Search" />
+        </p>
     }
+
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Go!</button>
+        </span>
+    </div>
 </div>
