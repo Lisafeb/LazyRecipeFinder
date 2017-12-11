@@ -18,7 +18,7 @@ namespace LazyRecipe.DAL
         private RecipeContext db = new RecipeContext();
 
         // GET: Recipes
-        public ViewResult Index(string sortOrder, string searchString)
+        public ViewResult Index(string sortOrder, string searchString, string[] FilteredsearchString)
         {
             //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
@@ -29,8 +29,16 @@ namespace LazyRecipe.DAL
             }
             else
             {
-                recipes = db.Recipes.Where(r => r.Ingredients.Any(i => i.IngredientName.Contains(searchString)));
-                
+                FilteredsearchString = searchString.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+
+                // "string" can be lowercase.
+                Console.WriteLine(string.Join(",", FilteredsearchString));
+
+                // ... "String" can be uppercase.
+                Console.WriteLine(String.Join(",", FilteredsearchString));
+
+                recipes = db.Recipes.Where(r => r.Ingredients.Any(i => FilteredsearchString.Contains(i.Ingredi‌​entName)));
+
             }
 
            
