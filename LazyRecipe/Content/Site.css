@@ -23,6 +23,61 @@ textarea {
     max-width: 280px;
 }
 
+.btn-primary {
+    margin-bottom: 3px;
+}
+
 td {
     min-width: 150px;
+}
+
+/* Hiding the checkbox, but allowing it to be focused */
+.badgebox {
+    opacity: 0;
+    margin-bottom: 3px;
+}
+
+    .badgebox + .badge {
+        /* Move the check mark away when unchecked */
+        text-indent: -999999px;
+        /* Makes the badge's width stay the same checked and unchecked */
+        width: 27px;
+        background: #fff;
+        color: black;
+    }
+
+    .badgebox:focus + .badge {
+        /* Set something to make the badge looks focused */
+        /* This really depends on the application, in my case it was: */
+        /* Adding a light border */
+        box-shadow: inset 0px 0px 5px;
+        /* Taking the difference out of the padding */
+    }
+
+    .badgebox:checked + .badge {
+        /* Move the check mark back when checked */
+        text-indent: 0;
+    }
+
+.carousel-control.right, .carousel-control.left {
+    background-image: -webkit-gradient(linear, 0 top, 100% top, from(rgba(0, 0, 0, 0.0000)), to(rgba(0, 0, 0,0)));
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 100%);
+}
+
+.carousel-inner {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background: #f5f5f5;
+    min-height: 200px;
+}
+
+.carousel-inner .item {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    padding: 40px;
+}
+
+.carousel-control .icon-prev, .carousel-control .icon-next, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
+    transform: translate(-50%,-50%);
 }

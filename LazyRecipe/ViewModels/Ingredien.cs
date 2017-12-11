@@ -9,5 +9,6 @@ namespace LazyRecipe.ViewModels
     {
         public int IngredientID { get; set; }
         public string IngredientName { get; set; }
+        public int IngredientCategory { get; set; }
     }
 }

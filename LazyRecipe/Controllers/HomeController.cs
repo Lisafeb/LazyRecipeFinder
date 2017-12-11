@@ -41,7 +41,8 @@ namespace LazyRecipe.Controllers
                 viewModel.Add(new Ingredien
                 {
                     IngredientID = ingredient.IngredientID,
-                    IngredientName = ingredient.IngredientName
+                    IngredientName = ingredient.IngredientName,
+                    IngredientCategory = ingredient.IngredientCategory
                 });
             }
             ViewBag.Ingredients = viewModel;
