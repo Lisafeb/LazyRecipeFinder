@@ -1,21 +1,55 @@
-﻿@{
+﻿@model LazyRecipe.Models.Recipe
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="content">
-   
-    @using (Html.BeginForm("Index", "Recipes", FormMethod.Get))
-    {
-        <p>
-            Find by name: @Html.TextBox("SearchString")
-            <input type="submit" value="Search" />
-        </p>
-    }
-
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for...">
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Go!</button>
-        </span>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <form action="/Recipes" method="get" class="form-inline">
+                <div class="form-group">
+                    <div class="input-group" style="width:100%">
+                        <input class="form-control" id="SearchString" name="SearchString" type="text" value="">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">search</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            
+            @using (Html.BeginForm())
+            {
+            <table style="margin: 40px auto;">
+                <tr>
+                    @{
+                        int cnt = 0;
+                        List<LazyRecipe.ViewModels.Ingredien> ingredients = ViewBag.Ingredients;
+                        foreach (var ingredient in ingredients)
+                        {
+                            if (cnt++ % 3 == 0)
+                            {
+                                @:</tr><tr>
+                            }
+                            @:<td>
+                                <input type="checkbox"
+                                       name="selectedIngredients"
+                                       value="@ingredient.IngredientID"
+                                        />
+                                        @ingredient.IngredientName
+                                        @:</td>
+                        }
+                        @:</tr>
+                    }
+                
+                </table>
+                        }
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-6 text-center">
+                        <input type="submit" value="Search" class="btn btn-default" />
+                    </div>
+                </div>
+        </div>
     </div>
 </div>

@@ -1,4 +1,6 @@
 ﻿using LazyRecipe.DAL;
+using LazyRecipe.Models;
+using LazyRecipe.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +12,10 @@ namespace LazyRecipe.Controllers
     public class HomeController : Controller
     {
 
-        public ActionResult Index()
+        private RecipeContext db = new RecipeContext();
+        public ActionResult Index(Recipe recipe)
         {
+            PopulateAssignedIngredienData();
             return View();
         }
 
@@ -28,7 +32,20 @@ namespace LazyRecipe.Controllers
             return View();
         }
 
-
+        private void PopulateAssignedIngredienData()
+        {
+            var allIngredients = db.Ingredients;
+            var viewModel = new List<Ingredien>();
+            foreach (var ingredient in allIngredients)
+            {
+                viewModel.Add(new Ingredien
+                {
+                    IngredientID = ingredient.IngredientID,
+                    IngredientName = ingredient.IngredientName
+                });
+            }
+            ViewBag.Ingredients = viewModel;
+        }
 
 
     }
