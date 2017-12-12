@@ -33,8 +33,9 @@
                             {
                                 if (@ingredient.IngredientCategory == 1)
                                 {
-                                    <label class="btn btn-primary fruits">
+                                    <label class="btn btn-primary fruits" id="checkboxes">
                                         <input type="checkbox"
+                                               id="@ingredient.IngredientName"
                                                name="selectedIngredients"
                                                class="badgebox"
                                                value="@ingredient.IngredientID" />
@@ -57,6 +58,7 @@
                                 <label class="btn btn-primary meat">
                                     <input type="checkbox"
                                            name="selectedIngredients"
+                                           id="@ingredient.IngredientName"
                                            class="badgebox"
                                            value="@ingredient.IngredientID" />
                                     @ingredient.IngredientName 
@@ -78,6 +80,7 @@
                                     <label class="btn btn-primary dairy">
                                         <input type="checkbox"
                                                name="selectedIngredients"
+                                               id="@ingredient.IngredientName"
                                                class="badgebox"
                                                value="@ingredient.IngredientID" />
                                         @ingredient.IngredientName 
@@ -98,6 +101,7 @@
                                     <label class="btn btn-primary grains">
                                         <input type="checkbox"
                                                name="selectedIngredients"
+                                               id="@ingredient.IngredientName"
                                                class="badgebox"
                                                value="@ingredient.IngredientID" />
                                         @ingredient.IngredientName
@@ -118,6 +122,7 @@
                                     <label class="btn btn-primary seasoning">
                                         <input type="checkbox"
                                                name="selectedIngredients"
+                                               id="@ingredient.IngredientName"
                                                class="badgebox"
                                                value="@ingredient.IngredientID" />
                                         @ingredient.IngredientName
@@ -135,9 +140,10 @@
                             {
                                 if (@ingredient.IngredientCategory == 0)
                                 {
-                                    <label class="btn btn-primary veggies">
+                                    <label id="checkboxes" class="btn btn-primary veggies">
                                         <input type="checkbox"
                                                name="selectedIngredients"
+                                               id="@ingredient.IngredientName"
                                                class="badgebox"
                                                value="@ingredient.IngredientID" />
                                         @ingredient.IngredientName
@@ -197,3 +203,18 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $checks = $(":checkbox");
+        $checks.on('change', function () {
+            var ingredient = $checks.filter(":checked").map(function (i, v) {
+                return this.id;
+            }).get().join(" ");
+            $('#SearchString').val(ingredient);
+        }).trigger('change');
+    });
+
+</script>
