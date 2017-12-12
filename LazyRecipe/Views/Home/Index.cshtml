@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
+<link href='https://fonts.googleapis.com/css?family=Amiko' rel='stylesheet'>
 <div class="content">
     <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center">
@@ -22,7 +22,7 @@
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-                    <div class="item active">
+                    <div class="item active" >
                         
                         @{
                             List<LazyRecipe.ViewModels.Ingredien> ingredients = ViewBag.Ingredients;
@@ -31,7 +31,7 @@
                             {
                                 if (@ingredient.IngredientCategory == 1)
                                 {
-                                    <label class="btn btn-primary">
+                                    <label class="btn btn-primary fruits">
                                         <input type="checkbox"
                                                name="selectedIngredients"
                                                class="badgebox"
@@ -40,11 +40,7 @@
                                         <span class="badge">&check;</span>
                                     </label>
                                 }
-
-
-
                             }
-
                         }
                     </div>
 
@@ -56,7 +52,7 @@
                            {
                                if (@ingredient.IngredientCategory == 2)
                                {
-                                <label class="btn btn-primary">
+                                <label class="btn btn-primary meat">
                                     <input type="checkbox"
                                            name="selectedIngredients"
                                            class="badgebox"
@@ -65,11 +61,7 @@
                                     <span class="badge">&check;</span>
                                 </label>
                                }
-
-
-
                            }
-
                     }
                     </div>
 
@@ -81,7 +73,7 @@
                             {
                                 if (@ingredient.IngredientCategory == 3)
                                 {
-                                    <label class="btn btn-primary">
+                                    <label class="btn btn-primary dairy">
                                         <input type="checkbox"
                                                name="selectedIngredients"
                                                class="badgebox"
@@ -90,11 +82,67 @@
                                         <span class="badge">&check;</span>
                                     </label>
                                 }
-
-
-
                             }
+                        }
+                    </div>
+                    <div class="item" >
+                        @{
 
+                            <img style="width:50%; margin:10px auto;" src="~/Content/images/grain.png" />
+                            foreach (var ingredient in ingredients)
+                            {
+                                if (@ingredient.IngredientCategory == 4)
+                                {
+                                    <label class="btn btn-primary grains">
+                                        <input type="checkbox"
+                                               name="selectedIngredients"
+                                               class="badgebox"
+                                               value="@ingredient.IngredientID" />
+                                        @ingredient.IngredientName
+                                        <span class="badge">&check;</span>
+                                    </label>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="item" id="seasoning">
+                        @{
+
+                            <img style="width:50%; margin:10px auto;" src="~/Content/images/salt.png" />
+                            foreach (var ingredient in ingredients)
+                            {
+                                if (@ingredient.IngredientCategory == 5)
+                                {
+                                    <label class="btn btn-primary seasoning">
+                                        <input type="checkbox"
+                                               name="selectedIngredients"
+                                               class="badgebox"
+                                               value="@ingredient.IngredientID" />
+                                        @ingredient.IngredientName
+                                        <span class="badge">&check;</span>
+                                    </label>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="item" id="vegetables">
+                        @{
+
+                            <img style="width:50%; margin:10px auto;" src="~/Content/images/veggies.png" />
+                            foreach (var ingredient in ingredients)
+                            {
+                                if (@ingredient.IngredientCategory == 0)
+                                {
+                                    <label class="btn btn-primary veggies">
+                                        <input type="checkbox"
+                                               name="selectedIngredients"
+                                               class="badgebox"
+                                               value="@ingredient.IngredientID" />
+                                        @ingredient.IngredientName
+                                        <span class="badge">&check;</span>
+                                    </label>
+                                }
+                            }
                         }
                     </div>
                 </div>
