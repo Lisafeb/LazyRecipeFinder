@@ -4,108 +4,101 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Recipe</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.RecipeID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.RecipeID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.RecipeID, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RecipeName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipeName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RecipeName, "", new { @class = "text-danger" })
-            </div>
+<link href='https://fonts.googleapis.com/css?family=Amiko' rel='stylesheet'>
+<div class="content" style="background: #f5f5f5; padding: 50px;">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Create a recipe</h1>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="RecipeName">Recipe Name</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.RecipeName, new { htmlAttributes = new { @class = "form-control", placeholder = "Your recipe name" }})
+                            @Html.ValidationMessageFor(model => model.RecipeName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MainPicture, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MainPicture, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MainPicture, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control", placeholder = "How long does it take to prepare?" } })
+                            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Instructions, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Instructions, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="MainPicture">Image</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.MainPicture, new { htmlAttributes = new { @class = "form-control", placeholder = "How does it look?" } })
+                            @Html.ValidationMessageFor(model => model.MainPicture, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Instructions, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Instructions, new { htmlAttributes = new { @class = "form-control", placeholder = "How to prepare it?" } })
+                            @Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <table>
-                    <tr>
-                        @{
-                            int cnt = 0;
-                            List<LazyRecipe.ViewModels.AssignedIngredients> ingredients = ViewBag.Ingredients;
-                            foreach (var ingredient in ingredients)
-                            {
-                                if (cnt++ % 3 == 0)
-                                {
-                                    @: </tr> <tr>
-                            }
-                                @:<td>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control", placeholder = "Who are you?" } })
+                            @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-
-                                    <label class="btn btn-primary">
-                                        <input type="checkbox"
-                                               name="selectedIngredients"
-                                               class="badgebox"
-                                               value="@ingredient.IngredientID"
-                                               @(Html.Raw(ingredient.Assigned ? "checked=\"checked\"" : "")) />
-                                        @ingredient.IngredientName
-                                        <span class="badge">&check;</span>
-                                    </label>
-                                    @:</td>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <p>What ingredients are you using?</p>
+                                    @{
+                                        int cnt = 0;
+                                        List<LazyRecipe.ViewModels.AssignedIngredients> ingredients = ViewBag.Ingredients;
+                                        foreach (var ingredient in ingredients)
+                                        {
+                                            if (cnt++ % 3 == 0)
+                                            {
+                                                @: 
+                                             }
+                                            @: 
+                                                <label class="btn btn-primary">
+                                                    <input type="checkbox"
+                                                           name="selectedIngredients"
+                                                           class="badgebox"
+                                                           value="@ingredient.IngredientID"
+                                                           @(Html.Raw(ingredient.Assigned ? "checked=\"checked\"" : "")) />
+                                                    @ingredient.IngredientName
+                                                    <span class="badge">&check;</span>
+                                                </label>
+                                             @: 
                         }
-                            @: </tr>
-                        }
-                    </table>
-                </div>
-            </div>
+                                        @:
+                                    }
+                            </div>
+                        </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" style="margin:0" class="btn btn-md btn-primary" />
+                                <a class="btn btn-md btn-default" href="/Recipes">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                                        }
         </div>
-                            }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    </div>
+    
 </div>
 
 @section Scripts {

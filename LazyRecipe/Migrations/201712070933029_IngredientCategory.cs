@@ -7,7 +7,7 @@ namespace LazyRecipe.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.Ingredients", "IngredientCategory", c => c.Int(nullable: false));
+            AlterColumn("dbo.Ingredients", "IngredientCategory", c => c.Int(nullable: false));
         }
         
         public override void Down()

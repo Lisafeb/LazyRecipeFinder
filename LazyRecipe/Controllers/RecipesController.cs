@@ -25,7 +25,7 @@ namespace LazyRecipe.DAL
             IQueryable recipes;
             if (String.IsNullOrEmpty(searchString))
             {
-                recipes = db.Recipes;
+                recipes = db.Recipes.Include("Ingredients");
             }
             else
             {

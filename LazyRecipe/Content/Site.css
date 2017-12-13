@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: "Amiko";
+    font-size: 16px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -23,6 +25,21 @@ textarea {
     max-width: 280px;
 }
 
+ul {
+    margin-left:0;
+}
+ul li {
+    list-style: none;
+    display: inline-block;
+    margin-left:0;
+}
+
+ul li::after {
+    content:','
+}
+ul li:last-child::after {
+    content: none;
+}
 .btn-primary {
     margin-bottom: 3px;
 }
@@ -84,8 +101,24 @@ textarea {
 td {
     min-width: 150px;
 }
+
+h1 {
+    font-family: "Amiko";
+    font-size: 70px;
+}
 .btn{
     font-family:"Amiko"
+}
+
+/* wrapper */
+
+.wrapper {
+    margin: -50px;
+    margin-bottom: 0px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 150px;
+    color: white;
 }
 
 /* Hiding the checkbox, but allowing it to be focused */

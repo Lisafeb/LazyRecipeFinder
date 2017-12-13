@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<LazyRecipe.Models.Recipe>
+@using LazyRecipe.Models;
 
 @{
     ViewBag.Title = "Index";
@@ -22,7 +23,7 @@
     </div>
     @foreach (var item in Model)
     {
-        <div class="row" style="margin-bottom:10px;">
+        <div class="row" style="margin-bottom:10px; display: flex;">
             <div class="col-md-4">
                 <img class="img-responsive" src="@Html.DisplayFor(modelItem => item.MainPicture)" />
             </div>
@@ -30,17 +31,19 @@
                 <h2>@Html.DisplayFor(modelItem => item.RecipeName)</h2>
                 <p> Time: @Html.DisplayFor(modelItem => item.Time) minutes</p>
                 <p>
-                    Ingredients used:
-                    @*@foreach (var ingredient in Model.Ingredients)
+                    <b>Ingredients used:</b>
+                    <ul>
+                        @foreach (Ingredient ingredient in item.Ingredients)
                         {
-                          @Html.DisplayFor(modelItem => ingredient.IngredientName),
-                        }*@
+                            <li>@ingredient.IngredientName</li>
+                        }
+                    </ul>
                 </p>
             </div>
-            <div class="col-md-2">
-                @Html.ActionLink("Edit", "Edit", new { id = item.RecipeID }) <br />
-                @Html.ActionLink("Details", "Details", new { id = item.RecipeID }) <br />
-                @Html.ActionLink("Delete", "Delete", new { id = item.RecipeID })
+            <div class="col-md-2" style="display: flex; flex-direction: column; justify-content: center;">
+                @Html.ActionLink("Edit", "Edit", new { id = item.RecipeID }, new { @class = "btn btn-sm btn-default", @style ="margin-bottom:4px;" }) 
+                @Html.ActionLink("Details", "Details", new { id = item.RecipeID }, new { @class = "btn btn-sm btn-default" ,  @style ="margin-bottom:4px;" }) 
+                @Html.ActionLink("Delete", "Delete", new { id = item.RecipeID }, new { @class = "btn btn-sm btn-default", @style ="margin-bottom:4px;" })
             </div>
         </div>
     }
@@ -48,21 +51,3 @@
 
 
 
-
-@*@foreach (var item in Model) {
-
-                @Html.DisplayFor(modelItem => item.RecipeName)
-
-                @Html.DisplayFor(modelItem => item.Time)
-
-               <img src="@Html.DisplayFor(modelItem => item.MainPicture)" />
-
-                @Html.DisplayFor(modelItem => item.Instructions)
-            <div>
-                @Html.ActionLink("Edit", "Edit", new { id = item.RecipeID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.RecipeID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.RecipeID })
-            </div>
-
-
-    }*@
