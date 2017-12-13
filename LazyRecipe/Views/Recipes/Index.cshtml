@@ -3,54 +3,66 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href='https://fonts.googleapis.com/css?family=Amiko' rel='stylesheet'>
+<div class="content" style="background: #f5f5f5; padding: 30px;">
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col-sm-12 col-md-8">
+            <form action="/Recipes" method="get" class="form-inline">
+                <div class="form-group">
+                    <div class="input-group" style="width:100%">
+                        <input class="form-control" id="SearchString" name="SearchString" type="text" value="">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">search</button>
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-4 text-right">
+            <a class="btn btn-primary" href="/Recipes/Create">Create New</a>
+        </div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="row" style="margin-bottom:10px;">
+            <div class="col-md-4">
+                <img class="img-responsive" src="@Html.DisplayFor(modelItem => item.MainPicture)" />
+            </div>
+            <div class="col-md-6">
+                <h2>@Html.DisplayFor(modelItem => item.RecipeName)</h2>
+                <p> Time: @Html.DisplayFor(modelItem => item.Time) minutes</p>
+                <p>
+                    Ingredients used:
+                    @*@foreach (var ingredient in Model.Ingredients)
+                        {
+                          @Html.DisplayFor(modelItem => ingredient.IngredientName),
+                        }*@
+                </p>
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Edit", "Edit", new { id = item.RecipeID }) <br />
+                @Html.ActionLink("Details", "Details", new { id = item.RecipeID }) <br />
+                @Html.ActionLink("Delete", "Delete", new { id = item.RecipeID })
+            </div>
+        </div>
+    }
+</div>
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
-@using (Html.BeginForm())
-{ <p> Find by name: @Html.TextBox("SearchString") <input type="submit" value="Search" /></p> }
 
-<table class="table">
-    <tr>
-    
-        <th> @Html.ActionLink("Recipe Name", "Index", new { sortOrder = ViewBag.NameSortParm }) </th>
- 
-        <th>
-            @Html.DisplayNameFor(model => model.Time)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MainPicture)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Instructions)
-        </th>
-        <th></th>
-    </tr>
+@*@foreach (var item in Model) {
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecipeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Time)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MainPicture)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Instructions)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RecipeID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RecipeID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RecipeID })
-        </td>
+                @Html.DisplayFor(modelItem => item.RecipeName)
 
-    </tr>
-}
+                @Html.DisplayFor(modelItem => item.Time)
 
-</table>
+               <img src="@Html.DisplayFor(modelItem => item.MainPicture)" />
+
+                @Html.DisplayFor(modelItem => item.Instructions)
+            <div>
+                @Html.ActionLink("Edit", "Edit", new { id = item.RecipeID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RecipeID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RecipeID })
+            </div>
+
+
+    }*@
