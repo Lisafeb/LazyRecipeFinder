@@ -22,21 +22,23 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+
+
 }
 
 ul {
     margin-left:0;
 }
-ul li {
+.ingredient-list li {
     list-style: none;
     display: inline-block;
     margin-left:0;
 }
 
-ul li::after {
-    content:','
+.ingredient-list li::after {
+        content: ','
 }
+
 ul li:last-child::after {
     content: none;
 }
@@ -159,8 +161,8 @@ h1 {
 }
 
 .carousel-inner {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     background: #f5f5f5;
     min-height: 200px;
 }
