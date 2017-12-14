@@ -2,7 +2,7 @@
 @using LazyRecipe.Models;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Recipes";
 }
 <link href='https://fonts.googleapis.com/css?family=Amiko' rel='stylesheet'>
 <div class="container content">
@@ -54,7 +54,7 @@
 <script>
     var elementExists = document.getElementById("recipe");
     if (elementExists == null) {
-        $("<center><p>No recipes found</p></center>").appendTo("body");
+        $("<center><h1>No recipes found</h1></center>").appendTo("body");
     }
 </script>
 
