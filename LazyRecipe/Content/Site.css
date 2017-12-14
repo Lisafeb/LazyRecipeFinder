@@ -11,6 +11,14 @@
     padding-right: 15px;
 }
 
+.content {
+    background: #f5f5f5;
+    padding: 30px;
+}
+
+.display-flex {
+    display:flex;
+}
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -18,14 +26,14 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-
-
+.margin-top {
+    margin-top:15px !important;
 }
 
+.margin-bottom {
+    margin-bottom:15px !important;
+}
+/* Set width on the form input elements since they're 100% wide by default */
 textarea {
     width: 100%;
     height: 300px;
@@ -183,12 +191,6 @@ h1 {
     padding: 40px;
 }
 
-.carousel-control .icon-prev, .carousel-control .icon-next, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
-    
-}
-
-
-
 h4 {
     margin: 20px 10px 10px;
 }
@@ -219,6 +221,7 @@ p {
             height: auto;
             margin: 0 !important;
             width: auto;
+            border-color: transparent;
         }
 
             #myCarousel .carousel-indicators li img {
@@ -237,3 +240,34 @@ p {
     #myCarousel .carousel-outer {
         position: relative;
     }
+
+
+.flex-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: black;
+}
+@media (max-width: 992px) {
+    .flex-buttons {
+        flex-direction: row;
+    }
+
+        .flex-buttons a {
+            margin-right: 3px;
+        }
+
+    .form-group {
+        margin-bottom: 0px;
+        width:100%;
+    }
+
+    .recipe-item {
+        border-bottom:1px solid #ddd;
+        padding-bottom:20px;
+        margin-top:25px;
+    }
+}

@@ -19,7 +19,7 @@
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    <div class="form-group">
+                    <div class="form-group margin-bottom">
                         <label class="control-label col-md-2" for="RecipeName">Recipe Name</label>
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.RecipeName, new { htmlAttributes = new { @class = "form-control", placeholder = "Your recipe name" }})
@@ -27,7 +27,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group margin-bottom">
                         @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control", placeholder = "How long does it take to prepare?" } })
@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group margin-bottom">
                         <label class="control-label col-md-2" for="MainPicture">Image</label>
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.MainPicture, new { htmlAttributes = new { @class = "form-control", placeholder = "How does it look?" } })
@@ -43,7 +43,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group margin-bottom">
                         @Html.LabelFor(model => model.Instructions, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.TextAreaFor(model => model.Instructions, new { htmlAttributes = new { @class = "form-control", placeholder = "How to prepare it?" } })
@@ -51,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group margin-bottom">
                         @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control", placeholder = "Who are you?" } })
@@ -88,7 +88,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group margin-top">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Create" style="margin:0" class="btn btn-md btn-primary" />
                                 <a class="btn btn-md btn-default" href="/Recipes">Back to List</a>
