@@ -37,7 +37,10 @@ namespace LazyRecipe.DAL
                 // ... "String" can be uppercase.
                 Console.WriteLine(String.Join(",", FilteredsearchString));
 
-                recipes = db.Recipes.Where(r => r.Ingredients.Any(i => FilteredsearchString.Contains(i.Ingredi‌​entName)));
+                recipes = db.Recipes.Where(r => r.Ingredients
+    .Any(i => FilteredsearchString.Contains(i.Ingredi‌​entName)))
+    .OrderByDescending(x => x.Ingredients
+        .Count(y => FilteredsearchString.Contains(y.IngredientName)));
 
             }
 
